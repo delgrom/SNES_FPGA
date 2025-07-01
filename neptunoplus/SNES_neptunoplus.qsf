@@ -132,6 +132,14 @@ set_location_assignment PIN_A4 -to SD_MISO
 set_location_assignment PIN_B4 -to SD_SCK
 #set_location_assignment PIN_C5 -to SD_CS
 
+set_location_assignment PIN_AD4 -to JOY_CLK
+set_location_assignment PIN_AC4 -to JOY_LOAD
+set_location_assignment PIN_AD3 -to JOY_DATA
+set_location_assignment PIN_AF4 -to JOY_XCLK
+set_location_assignment PIN_AE3 -to JOY_XLOAD
+set_location_assignment PIN_AF5 -to JOY_XDATA
+set_location_assignment PIN_A19 -to JOY_SELECT
+
 set_location_assignment PIN_L25 -to SDRAM_A[0]
 set_location_assignment PIN_L26 -to SDRAM_A[1]
 set_location_assignment PIN_M25 -to SDRAM_A[2]

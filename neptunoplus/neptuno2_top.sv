@@ -37,11 +37,17 @@ module neptuno2_top (
 	output        I2S_LRCK,
 	output        I2S_DATA,
 
-//   output        JOY_CLK       = 1'b1,
-//	output        JOY_LOAD      = 1'b1,
-//	input         JOY_DATA,
-//	output        JOY_SEL       = 1'b1,	
-	
+	//joystick reflection
+	input        JOY_XCLK,
+	input		 JOY_XLOAD,
+	output       JOY_XDATA,	
+
+	// db9 joystick
+	output        JOY_CLK       = 1'b1,
+	output        JOY_LOAD      = 1'b1,
+	input         JOY_DATA,
+	output        JOY_SELECT    = 1'b1,	
+		
 `ifdef USE_AUDIO_IN
 	input         AUDIO_IN,
 `endif
@@ -95,9 +101,19 @@ SNES_MIST_TOP guest
  .UART_TX	 (UART_TX) 
 );
 
+// JAMMA interface
+reg joy_select = 1'b1;
+always @(posedge JOY_XLOAD) begin
+	joy_select <= ~joy_select | ~JOY_XCLK;
+end
+
+assign JOY_CLK = JOY_XCLK;
+assign JOY_LOAD = JOY_XLOAD;
+assign JOY_XDATA = JOY_DATA;
+assign JOY_SELECT = joy_select;
 
 
-
+// direct upload fix
 wire spi_do_int;
 assign spi_do_int = SPI_SS4 ? 1'bz : SD_MISO;
 assign SPI_DO = spi_do_int;
